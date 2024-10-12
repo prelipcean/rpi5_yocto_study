@@ -11,7 +11,11 @@ https://layers.openembedded.org/layerindex/branch/master/layers/
 Reference Documentation (Raspberry Pi)
 ########################################
 https://www.raspberrypi.com/documentation/
+https://datasheets.raspberrypi.com/
 https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf
+https://github.com/raspberrypi/linux
+https://github.com/raspberrypi/linux/tree/rpi-6.6.y/arch/arm/boot/dts/overlays
+
 
 Preliminary Steps
 #############################
@@ -107,4 +111,5 @@ bitbake-layers add-layer meta-study
 
 
 Ubuntu fix to build:
+###########################
 sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
