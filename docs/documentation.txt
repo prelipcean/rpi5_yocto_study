@@ -23,18 +23,21 @@ Preliminary Steps
 $ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales libacl1
 $ sudo locale-gen en_US.UTF-8
 
-Download Poky
+Download Poky (standalone)
 ######################
-git clone git://git.yoctoproject.org/poky -b scarthgap
+$ git clone git://git.yoctoproject.org/poky -b scarthgap
 
 Building Software Package Example
 ######################################
-mkdir build
-source poky/oe-init-build-env build/
+$ mkdir build
+$ source poky/oe-init-build-env build/
 OR
-. poky/oe-init-build-env build/
+$ . poky/oe-init-build-env build/
 
-bitbake dropbear
+# Compile a package for testing
+$ bitbake dropbear
+# Clean package
+$ bitbake dropbear -c cleanall
 
 What will go to rootfs image for built package dropbear
 /home/george/Workspace/Yocto/rpi5_yocto_study/build/tmp/work/core2-64-poky-linux/dropbear/2022.83/image
@@ -43,18 +46,13 @@ Cloning Additional Layers
 ##############################
 Use https://layers.openembedded.org/layerindex/branch/master/layers/ to pick layer
 
-cd poky/
-git clone <layer_git> -b <branch_name>
+$ cd poky/
+$ git clone <layer_git> -b <branch_name>
 
 
 Cooking (bitbake'ing) the image recipe
 ################################
-bitbake core-image-minimal
-
-Serial communication
-######################
-ls /dev/tty*
-sudo minicom -s
+$ bitbake core-image-minimal
 
 Limit cores and threads from local.conf
 ###########################################
@@ -63,11 +61,11 @@ PARALLEL_MAKE="-j 2"
 
 Cook application SDK
 #########################
-bitbake meta-toolchain
+$ bitbake meta-toolchain
 or
-bitbake meta-toolchain-qt6
+$ bitbake meta-toolchain-qt6
 or
-bitbake meta-toolchain-moz
+$ bitbake meta-toolchain-moz
 
 Install application SDK
 #########################
@@ -75,41 +73,93 @@ Execute the script from tmp/deploy/sdk/*toolchain
 
 Use the application SDK
 ###########################
-. /opt/poky/5.0.1/environment-setup-cortexa76-poky-linux
-
+$ . /opt/poky/5.0.1/environment-setup-cortexa76-poky-linux
 
 
 Git setup
 ###########################
-git config --global core.autocrlf false
-git config --global core.eol crlf
-git rev-parse HEAD
-git rev-parse --short HEAD
-git tag <tagname>
-git push origin --tags
-git commit -m "Message ..." --signoff
-git submodule add -b scarthgap git://git.yoctoproject.org/poky poky
-git submodule add -b scarthgap https://github.com/openembedded/meta-openembedded.git meta-openembedded
-git submodule add -b scarthgap https://github.com/meta-qt5/meta-qt5.git meta-qt5
-git submodule add -b scarthgap git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi
+$ git config --global core.autocrlf false
+$ git config --global core.eol crlf
+$ git rev-parse HEAD
+$ git rev-parse --short HEAD
+$ git tag <tagname>
+$ git push origin --tags
+$ git commit -m "Message ..." --signoff
+$ git submodule add -b scarthgap git://git.yoctoproject.org/poky poky
+$ git submodule add -b scarthgap https://github.com/openembedded/meta-openembedded.git meta-openembedded
+$ git submodule add -b scarthgap https://github.com/meta-qt5/meta-qt5.git meta-qt5
+$ git submodule add -b scarthgap git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi
 
 Useful commands
 ###########################
 List files:
-find ../poky/ -name "*poky*"
+$ find ../poky/ -name "*poky*"
+$ find ../../RPi_Project_Kirkstone/poky/ -type f -name \*.bb
+
 Show BB layers
-bitbake-layers show-layers
-Other BB commands https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-commands/ta-p/1128559
-bitbake-layers show-recipes "*-image-*"
+$ bitbake-layers show-layers
+$ bitbake-layers show-recipes "*-image-*"
+$ bitbake-layers show-recipes
+$ bitbake-layers show-appends
+
 Show BB path
-echo $BBPATH
+$ echo $BBPATH
 	results: /home/george/Workspace/Yocto/rpi5_yocto_study/build
 
-bitbake-layers create-layer meta-study
-bitbake-layers add-layer meta-study
+$ bitbake-layers create-layer meta-study
+$ bitbake-layers add-layer meta-study
 
+Chech what we install
+$ bitbake -e core-image-minimal | grep ^IMAGE_INSTALL=
 
+Other BB commands
+https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-commands/ta-p/1128559
+
+Location of build image
+###########################
+rpi5_yocto_study/build/tmp/deploy/images/raspberrypi5
+
+Prepare card
+###########################
+$ sudo dmesg
+$ sudo fdisk -l
+# Convert wic.bz2 to .wic
+$ bzip2 -dkf core-image-minimal-raspberrypi5.rootfs-20241012173237.wic.bz2
+$ sudo dd if=core-image-minimal-raspberrypi5.rootfs-20241012173237.wic of=/dev/mmcblk0 status=progress bs=4096 && sync
+
+Minicom (Serial communication)
+###########################
+$ sudo apt install minicom
+$ ls /dev/tty*
+	response with a new device after plug in: /dev/ttyUSB0
+Setup minicom
+$ sudo minicom -s
+Enter minicom after setup
+$ sudo minicom
+CTRL+A X = exit
 
 Ubuntu fix to build:
 ###########################
-sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
+$ sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
+
+If unable to locate a package, find correct package name or update source list (repository list)
+https://packages.ubuntu.com/
+$ cat /etc/apt/sources.list
+https://forums.linuxmint.com/viewtopic.php?t=385837
+
+Check devices connected on network
+###########################
+$ sudo nmap -sn 192.168.1.0/24
+
+
+SSH
+###########################
+$ ssh root@192.168.1.XXX
+# Copy files https://www.hostinger.com/tutorials/using-scp-command-to-transfer-files/
+scp [options] [source username@IP]:/[directory and file name] [destination username@IP]:/[destination directory]
+
+
+Others
+###########################
+https://etcher.balena.io/#download-etcher
+https://github.com/balena-io/etcher/releases
