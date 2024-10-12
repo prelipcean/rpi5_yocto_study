@@ -13,6 +13,9 @@
 		{
 			"path": "../poky"
 		},
+		{
+			"path": "../build"
+		},
 	],
 	"settings": {
 		"files.exclude": {

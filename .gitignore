@@ -1,1 +1,4 @@
 # Ignore
+build/*
+# Except
+!build/conf/
