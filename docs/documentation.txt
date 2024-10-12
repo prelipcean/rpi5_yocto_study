@@ -32,6 +32,9 @@ OR
 
 bitbake dropbear
 
+What will go to rootfs image for built package dropbear
+/home/george/Workspace/Yocto/rpi5_yocto_study/build/tmp/work/core2-64-poky-linux/dropbear/2022.83/image
+
 Cloning Additional Layers
 ##############################
 Use https://layers.openembedded.org/layerindex/branch/master/layers/ to pick layer
@@ -82,7 +85,8 @@ git tag <tagname>
 git push origin --tags
 git commit -m "Message ..." --signoff
 git submodule add -b scarthgap git://git.yoctoproject.org/poky poky
-
+git submodule add -b scarthgap https://github.com/openembedded/meta-openembedded.git meta-openembedded
+git submodule add -b scarthgap https://github.com/meta-qt5/meta-qt5.git meta-qt5
 
 Useful commands
 ###########################
@@ -98,3 +102,5 @@ echo $BBPATH
 
 Ubuntu fix to build:
 sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
+
+
