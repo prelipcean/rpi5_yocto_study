@@ -87,6 +87,7 @@ git commit -m "Message ..." --signoff
 git submodule add -b scarthgap git://git.yoctoproject.org/poky poky
 git submodule add -b scarthgap https://github.com/openembedded/meta-openembedded.git meta-openembedded
 git submodule add -b scarthgap https://github.com/meta-qt5/meta-qt5.git meta-qt5
+git submodule add -b scarthgap git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi
 
 Useful commands
 ###########################
@@ -100,7 +101,10 @@ Show BB path
 echo $BBPATH
 	results: /home/george/Workspace/Yocto/rpi5_yocto_study/build
 
+bitbake-layers create-layer meta-study
+bitbake-layers add-layer meta-study
+
+
+
 Ubuntu fix to build:
 sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
-
-

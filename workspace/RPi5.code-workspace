@@ -14,7 +14,16 @@
 			"path": "../poky"
 		},
 		{
+			"path": "../meta-openembedded"
+		},
+		{
+			"path": "../meta-raspberrypi"
+		},
+		{
 			"path": "../meta-qt5"
+		},
+		{
+			"path": "../meta-study"
 		},
 		{
 			"path": "../build"
