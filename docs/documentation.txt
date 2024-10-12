@@ -6,7 +6,8 @@ https://wiki.yoctoproject.org/wiki/Releases
 https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html
 https://docs.yoctoproject.org/ref-manual/variables.html
 https://layers.openembedded.org/layerindex/branch/master/layers/
-
+https://docs.yoctoproject.org/ref-manual/variables.html#term-IMAGE_FSTYPES
+https://docs.yoctoproject.org/ref-manual/variables.html#term-IMAGE_TYPES
 
 Reference Documentation (Raspberry Pi)
 ########################################
