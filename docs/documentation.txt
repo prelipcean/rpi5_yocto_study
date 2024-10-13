@@ -178,3 +178,16 @@ it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sys
 
 GoYocto tool
 https://yoctoproject.net/#
+
+
+Patch
+$ devtool modify <recipename>
+do modifications
+$git diff
+$ git add <file>
+$ git commit -m <message> --signoff
+$ git format-patch -1'
+test
+$ devtool build <recipename>
+remove
+$ devtool reset <recipename>
