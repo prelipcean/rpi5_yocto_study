@@ -42,7 +42,7 @@
         "workbench.tree.indent": 30,
         "workbench.colorTheme": "Default Light+",
 		"editor.insertSpaces": false,
-		"editor.renderWhitespace": "all",
+		"editor.renderWhitespace": "false",
 		"code-eol.newlineCharacter": "¬",
 		"code-eol.returnCharacter" : "¤",
 		"code-eol.crlfCharacter"   : "¤¬",

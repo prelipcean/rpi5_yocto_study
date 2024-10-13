@@ -194,5 +194,9 @@ $ devtool reset <recipename>
 
 
 Qt6
-git clone --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git
-git submodule add --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git meta-qt6
+$ git clone --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git
+Submodule version
+$ git submodule add git://code.qt.io/yocto/meta-qt6.git meta-qt6
+$ cd meta-qt6
+$ git fetch --all --tags --prune
+$ git checkout v6.5.7-lts
