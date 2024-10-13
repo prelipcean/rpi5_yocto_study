@@ -42,12 +42,17 @@
         "workbench.tree.indent": 30,
         "workbench.colorTheme": "Default Light+",
 		"editor.insertSpaces": false,
+		"editor.renderWhitespace": "all",
+		"code-eol.newlineCharacter": "¬",
+		"code-eol.returnCharacter" : "¤",
+		"code-eol.crlfCharacter"   : "¤¬",
+		"files.eol": "\r\n",
 		"explorer.autoReveal": false,
 		"git.ignoreLimitWarning": true,
 		"search.followSymlinks": false,
 		"git.enabled": false,
 		"C_Cpp.autocomplete": "Disabled",
-		"workbench.statusBar.visible": false,
+		"workbench.statusBar.visible": true,
 		"search.exclude": {
 			"**/.git": true,
 			"**/.repo": true
