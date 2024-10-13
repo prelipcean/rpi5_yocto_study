@@ -191,3 +191,8 @@ test
 $ devtool build <recipename>
 remove
 $ devtool reset <recipename>
+
+
+Qt6
+git clone --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git
+git submodule add --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git meta-qt6
