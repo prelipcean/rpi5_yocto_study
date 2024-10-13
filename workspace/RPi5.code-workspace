@@ -23,6 +23,9 @@
 			"path": "../meta-qt5"
 		},
 		{
+			"path": "../meta-qt6"
+		},
+		{
 			"path": "../meta-study"
 		},
 		{

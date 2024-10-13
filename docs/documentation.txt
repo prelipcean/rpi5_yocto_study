@@ -200,3 +200,6 @@ $ git submodule add git://code.qt.io/yocto/meta-qt6.git meta-qt6
 $ cd meta-qt6
 $ git fetch --all --tags --prune
 $ git checkout v6.5.7-lts
+
+Run from target qt app
+$ /usr/bin/appqtdemo -platform eglfs
