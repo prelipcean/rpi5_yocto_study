@@ -173,5 +173,8 @@ Export for target
 export OECORE_TARGET_SYSROOT=${STAGING_DIR_TARGET}
 it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sysroot
 Export for host
-export OECORE_TARGET_SYSROOT=${STAGING_DIR_HOST}
+export OECORE_TARGET_SYSROOT=${STAGING_DIR_NATIVE} OR ${STAGING_DIR_HOST}
 it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sysroot-native
+
+GoYocto tool
+https://yoctoproject.net/#
