@@ -128,6 +128,9 @@ $ sudo fdisk -l
 $ bzip2 -dkf core-image-minimal-raspberrypi5.rootfs-20241012173237.wic.bz2
 $ sudo dd if=core-image-minimal-raspberrypi5.rootfs-20241012173237.wic of=/dev/mmcblk0 status=progress bs=4096 && sync
 
+If we add image filetype to build command is 
+$ sudo dd if=core-image-minimal-raspberrypi5.rootfs.wic of=/dev/mmcblk0 status=progress bs=4096 && sync
+
 Minicom (Serial communication)
 ###########################
 $ sudo apt install minicom
