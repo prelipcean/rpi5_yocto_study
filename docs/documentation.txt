@@ -20,13 +20,14 @@ https://github.com/raspberrypi/linux/tree/rpi-6.6.y/arch/arm/boot/dts/overlays
 
 Preliminary Steps
 #############################
-
 $ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales libacl1
 $ sudo locale-gen en_US.UTF-8
+
 
 Download Poky (standalone)
 ######################
 $ git clone git://git.yoctoproject.org/poky -b scarthgap
+
 
 Building Software Package Example
 ######################################
@@ -43,6 +44,7 @@ $ bitbake dropbear -c cleanall
 What will go to rootfs image for built package dropbear
 /home/george/Workspace/Yocto/rpi5_yocto_study/build/tmp/work/core2-64-poky-linux/dropbear/2022.83/image
 
+
 Cloning Additional Layers
 ##############################
 Use https://layers.openembedded.org/layerindex/branch/master/layers/ to pick layer
@@ -55,10 +57,12 @@ Cooking (bitbake'ing) the image recipe
 ################################
 $ bitbake core-image-minimal
 
+
 Limit cores and threads from local.conf
 ###########################################
 BB_NUMBER_THREADS="10"
 PARALLEL_MAKE="-j 2"
+
 
 Cook application SDK
 #########################
@@ -68,9 +72,11 @@ $ bitbake meta-toolchain-qt6
 or
 $ bitbake meta-toolchain-moz
 
+
 Install application SDK
 #########################
 Execute the script from tmp/deploy/sdk/*toolchain
+
 
 Use the application SDK
 ###########################
@@ -91,11 +97,13 @@ $ git submodule add -b scarthgap https://github.com/openembedded/meta-openembedd
 $ git submodule add -b scarthgap https://github.com/meta-qt5/meta-qt5.git meta-qt5
 $ git submodule add -b scarthgap git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi
 
+
 Useful commands
 ###########################
 List files:
 $ find ../poky/ -name "*poky*"
 $ find ../../RPi_Project_Kirkstone/poky/ -type f -name \*.bb
+
 
 Show BB layers
 ###########################
@@ -103,6 +111,7 @@ $ bitbake-layers show-layers
 $ bitbake-layers show-recipes "*-image-*"
 $ bitbake-layers show-recipes
 $ bitbake-layers show-appends
+
 
 Show BB path
 ###########################
@@ -118,9 +127,11 @@ $ bitbake -e core-image-minimal | grep ^IMAGE_INSTALL=
 Other BB commands
 https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-commands/ta-p/1128559
 
+
 Location of build image
 ###########################
 rpi5_yocto_study/build/tmp/deploy/images/raspberrypi5
+
 
 Prepare card
 ###########################
@@ -133,6 +144,7 @@ $ sudo dd if=core-image-minimal-raspberrypi5.rootfs-20241012173237.wic of=/dev/m
 If we add image filetype to build command is 
 $ sudo dd if=core-image-minimal-raspberrypi5.rootfs.wic of=/dev/mmcblk0 status=progress bs=4096 && sync
 
+
 Minicom (Serial communication)
 ###########################
 $ sudo apt install minicom
@@ -144,6 +156,7 @@ Enter minicom after setup
 $ sudo minicom
 CTRL+A X = exit
 
+
 Ubuntu fix to build:
 ###########################
 $ sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
@@ -152,6 +165,7 @@ If unable to locate a package, find correct package name or update source list (
 https://packages.ubuntu.com/
 $ cat /etc/apt/sources.list
 https://forums.linuxmint.com/viewtopic.php?t=385837
+
 
 Check devices connected on network
 ###########################
@@ -179,6 +193,7 @@ Export for host
 export OECORE_TARGET_SYSROOT=${STAGING_DIR_NATIVE} OR ${STAGING_DIR_HOST}
 it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sysroot-native
 
+
 GoYocto tool
 ###########################
 https://yoctoproject.net/#
@@ -191,11 +206,21 @@ do modifications
 $git diff
 $ git add <file>
 $ git commit -m <message> --signoff
+
+OPTION 1
+$ devtool update-recipe <recipename> -a <pathtolayer>
+e.g. devtool update-recipe raspberrypi-utils -a ../../../../meta-study
+
+OPTION 2
 $ git format-patch -1'
 test
 $ devtool build <recipename>
-remove
+
+Remove workspace
 $ devtool reset <recipename>
+also
+$ rm -rf workspace/
+also delet line from bblayers.conf
 
 
 Qt6
@@ -219,6 +244,7 @@ $ ./usr/bin/appyoctoqt6demo -platform eglfs
 $ sudo apt -y install libqt6core5compat6-dev
 Note, selecting 'qt6-5compat-dev' instead of 'libqt6core5compat6-dev'
 
+
 Application SDK
 ###########################
 $ bitbake meta-toolchain
@@ -231,3 +257,4 @@ $ printenv
 $ . /opt/poky/5.0.1/environment-setup-cortex76-poky-linux
 $ make
 $ file appcompiled
+

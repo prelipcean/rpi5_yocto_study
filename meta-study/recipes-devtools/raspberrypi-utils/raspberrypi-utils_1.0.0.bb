@@ -11,7 +11,7 @@ SRCREV = "371ae96ff6d8b869d4125137fdc73b86fe154245"
 #SRCREV = "${AUTOREV}"
 
 # Overwrrite original CMakeLists file
-SRC_URI += " file://git/CMakeLists.txt "
+# SRC_URI += " file://git/CMakeLists.txt "
 
 
 
