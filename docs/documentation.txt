@@ -214,7 +214,10 @@ https://www.qt.io/download-qt-installer-oss
 https://www.qt.io/academy/course-catalog
 
 Run from target qt app
-$ /usr/bin/appqtdemo -platform eglfs
+$ ./usr/bin/appyoctoqt6demo -platform eglfs
+
+$ sudo apt -y install libqt6core5compat6-dev
+Note, selecting 'qt6-5compat-dev' instead of 'libqt6core5compat6-dev'
 
 Application SDK
 ###########################
@@ -223,3 +226,8 @@ $ bitbake meta-toolchain
 tmp/deploy/sdk folder is created and populated
 Run below script to use SDK
 tmp/deploy/sdk/<..>/..toolchain.sh
+
+$ printenv
+$ . /opt/poky/5.0.1/environment-setup-cortex76-poky-linux
+$ make
+$ file appcompiled
