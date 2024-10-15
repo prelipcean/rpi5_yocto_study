@@ -1,0 +1,1 @@
+KBUILD_DEFCONFIG:raspberrypi5_study ?= "bcm2712_defconfig"
