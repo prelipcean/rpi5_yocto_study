@@ -98,12 +98,14 @@ $ find ../poky/ -name "*poky*"
 $ find ../../RPi_Project_Kirkstone/poky/ -type f -name \*.bb
 
 Show BB layers
+###########################
 $ bitbake-layers show-layers
 $ bitbake-layers show-recipes "*-image-*"
 $ bitbake-layers show-recipes
 $ bitbake-layers show-appends
 
 Show BB path
+###########################
 $ echo $BBPATH
 	results: /home/george/Workspace/Yocto/rpi5_yocto_study/build
 
@@ -163,13 +165,14 @@ $ ssh root@192.168.1.XXX
 scp [options] [source username@IP]:/[directory and file name] [destination username@IP]:/[destination directory]
 
 
-Others
+Etcher Balena for image flash
 ###########################
 https://etcher.balena.io/#download-etcher
 https://github.com/balena-io/etcher/releases
 
 
-Export for target
+Export for target from recipe
+###########################
 export OECORE_TARGET_SYSROOT=${STAGING_DIR_TARGET}
 it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sysroot
 Export for host
@@ -177,10 +180,12 @@ export OECORE_TARGET_SYSROOT=${STAGING_DIR_NATIVE} OR ${STAGING_DIR_HOST}
 it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sysroot-native
 
 GoYocto tool
+###########################
 https://yoctoproject.net/#
 
 
 Patch
+###########################
 $ devtool modify <recipename>
 do modifications
 $git diff
@@ -194,6 +199,7 @@ $ devtool reset <recipename>
 
 
 Qt6
+###########################
 $ git clone --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git
 Submodule version
 $ git submodule add git://code.qt.io/yocto/meta-qt6.git meta-qt6
@@ -201,5 +207,19 @@ $ cd meta-qt6
 $ git fetch --all --tags --prune
 $ git checkout v6.5.7-lts
 
+$ git tag
+$ git checkout v6.7.3
+
+https://www.qt.io/download-qt-installer-oss
+https://www.qt.io/academy/course-catalog
+
 Run from target qt app
 $ /usr/bin/appqtdemo -platform eglfs
+
+Application SDK
+###########################
+$ bitbake meta-toolchain
+
+tmp/deploy/sdk folder is created and populated
+Run below script to use SDK
+tmp/deploy/sdk/<..>/..toolchain.sh
