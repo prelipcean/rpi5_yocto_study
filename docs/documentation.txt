@@ -113,6 +113,11 @@ $ git submodule add -b scarthgap https://github.com/openembedded/meta-openembedd
 $ git submodule add -b scarthgap https://github.com/meta-qt5/meta-qt5.git meta-qt5
 $ git submodule add -b scarthgap git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi
 
+Remove Qt5 submodule if not used
+$ git submodule deinit -f meta-qt5/
+$ rm -rf .git/modules/meta-qt5/
+$ git rm -f meta-qt5/
+
 
 Useful commands
 ###########################
