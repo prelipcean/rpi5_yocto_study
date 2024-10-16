@@ -5,13 +5,16 @@
 			"path": "."
 		},
 		{
-			"path": "../workspace"
-		},
-		{
 			"path": "../docs"
 		},
 		{
+			"path": "../build"
+		},
+		{
 			"path": "../poky"
+		},
+		{
+			"path": "../meta-study"
 		},
 		{
 			"path": "../meta-openembedded"
@@ -24,12 +27,6 @@
 		},
 		{
 			"path": "../meta-qt6"
-		},
-		{
-			"path": "../meta-study"
-		},
-		{
-			"path": "../build"
 		},
 	],
 	"settings": {

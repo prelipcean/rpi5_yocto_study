@@ -63,6 +63,13 @@ Limit cores and threads from local.conf
 BB_NUMBER_THREADS="10"
 PARALLEL_MAKE="-j 2"
 
+https://stackoverflow.com/questions/70597349/yocto-build-maxium-parallel-make-bb-number-threads
+
+See number of cores
+$ lscpu
+$ nproc
+$ cat /proc/cpuinfo
+
 
 Cook application SDK
 #########################
@@ -85,8 +92,17 @@ $ . /opt/poky/5.0.1/environment-setup-cortexa76-poky-linux
 
 Git setup
 ###########################
+$ git config --global --list
+
 $ git config --global core.autocrlf false
+
+Note below option don't use and if available remove it with next line
 $ git config --global core.eol crlf
+$ git config --global --unset core.eol
+
+Set your username: git config --global user.name "FIRST_NAME LAST_NAME"
+Set your email address: git config --global user.email "MY_NAME@example.com"
+
 $ git rev-parse HEAD
 $ git rev-parse --short HEAD
 $ git tag <tagname>
@@ -258,3 +274,20 @@ $ . /opt/poky/5.0.1/environment-setup-cortex76-poky-linux
 $ make
 $ file appcompiled
 
+Another search tool
+###########################
+$ sudo apt install silversearcher-ag
+$ ag "config SPI_SPIDEV"
+$ cat .config | grep SPIDEV
+$ cat /proc/config.gz | gunzip
+
+
+See space occupied
+###########################
+https://medium.com/@naveedmajeed2/check-storage-size-of-files-and-folders-through-terminal-2b1604f0da4d
+
+Summary of disk space
+$ df -h
+
+Space occupied by current folder
+$ du -sh .
