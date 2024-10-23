@@ -65,7 +65,8 @@
     "explorer.compactFolders": false,
 
     "git.ignoreLimitWarning": true,
-    "git.enabled": false,
+    // "git.enabled": false,
+    "git.enabled": true,
 
     "C_Cpp.autocomplete": "disabled",
 

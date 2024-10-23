@@ -304,3 +304,36 @@ $ df -h
 
 Space occupied by current folder
 $ du -sh .
+
+VSCode installed extensions
+###########################
+$ code --list-extensions
+
+  alefragnani.bookmarks
+  alphabotsec.vscode-eclipse-keybindings
+  chrmarti.regex
+  eamodio.gitlens
+  esbenp.prettier-vscode
+  file-icons.file-icons
+  formulahendry.code-runner
+  johnpapa.vscode-peacock
+  kamikillerto.vscode-colorize
+  mads-hartmann.bash-ide-vscode
+  medo64.render-crlf
+  ms-python.debugpy
+  ms-python.python
+  ms-python.vscode-pylance
+  ms-vscode.cmake-tools
+  ms-vscode.cpptools
+  ms-vscode.cpptools-extension-pack
+  ms-vscode.cpptools-themes
+  oderwat.indent-rainbow
+  peakchen90.open-html-in-browser
+  streetsidesoftware.code-spell-checker
+  tatsuyanakamori.resttext
+  tomoki1207.pdf
+  trond-snekvik.simple-rst
+  twxs.cmake
+  wayou.vscode-todo-highlight
+  wlhe.c-cpp-snippets
+  yocto-project.yocto-bitbake
