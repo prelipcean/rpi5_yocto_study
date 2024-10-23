@@ -1,86 +1,115 @@
 {
-	"folders": [
-		{
-			"name": "VSCodeWorkspace",
-			"path": "."
-		},
-		{
-			"path": "../docs"
-		},
-		{
-			"path": "../build"
-		},
-		{
-			"path": "../poky"
-		},
-		{
-			"path": "../meta-study"
-		},
-		{
-			"path": "../meta-openembedded"
-		},
-		{
-			"path": "../meta-raspberrypi"
-		},
-		{
-			"path": "../meta-qt5"
-		},
-		{
-			"path": "../meta-qt6"
-		},
-	],
-	"settings": {
-		"files.exclude": {
-			"build/tmp": true,
-			"build/downloads": true,
-			"build/sstate-cache": true,
-			"build/cache": true,
-			"build/hashserve.sock": true,
-			"build/bitbake.sock": true,
-		},
-        "editor.detectIndentation": false,
-        "workbench.tree.indent": 30,
-        "workbench.colorTheme": "Default Light+",
-		"editor.insertSpaces": false,
-		"editor.renderWhitespace": "false",
-		"code-eol.newlineCharacter": "¬",
-		"code-eol.returnCharacter" : "¤",
-		"code-eol.crlfCharacter"   : "¤¬",
-		"files.eol": "\r\n",
-		"explorer.autoReveal": false,
-		"git.ignoreLimitWarning": true,
-		"search.followSymlinks": false,
-		"git.enabled": false,
-		"C_Cpp.autocomplete": "Disabled",
-		"workbench.statusBar.visible": true,
-		"search.exclude": {
-			"**/.git": true,
-			"**/.repo": true
-		},
-		"restructuredtext.syntaxHighlighting.disabled": true,
-		"esbonio.sphinx.confDir": "",
-		"python.autoComplete.extraPaths": [
-			"${workspaceFolder}/sources/poky/bitbake/lib",
-			"${workspaceFolder}/sources/poky/meta/lib"
-		],
-		"python.analysis.extraPaths": [
-			"${workspaceFolder}/sources/poky/bitbake/lib",
-			"${workspaceFolder}/sources/poky/meta/lib"
-		],
-		"[python]": {
-			"diffEditor.ignoreTrimWhitespace": false,
-			"editor.formatOnType": true,
-			"editor.wordBasedSuggestions": "off",
-			"files.trimTrailingWhitespace": false
-		},
-		"[shellscript]": {
-			"files.eol": "\n",
-			"files.trimTrailingWhitespace": false
-		},
-		"files.watcherExclude": {
-			"**/build/downloads/**": true,
-			"**/build/sstate-cache/**": true,
-			"**/build/tmp/**": true
-		}
-	}
+  "folders": [
+    {
+      "name": "VSCodeWorkspace",
+      "path": "."
+    },
+    {
+      "path": "../docs"
+    },
+    {
+      "path": "../build"
+    },
+    {
+      "path": "../poky"
+    },
+    {
+      "path": "../meta-study"
+    },
+    {
+      "path": "../meta-openembedded"
+    },
+    {
+      "path": "../meta-raspberrypi"
+    },
+    {
+      "path": "../meta-qt5"
+    },
+    {
+      "path": "../meta-qt6"
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "build/tmp": true,
+      "build/downloads": true,
+      "build/sstate-cache": true,
+      "build/cache": true,
+      "build/hashserve.sock": true,
+      "build/bitbake.sock": true,
+    },
+    "files.autoSave": "off",
+    "files.eol": "\r\n",
+
+    "editor.detectIndentation": false,
+    "editor.fontSize": 16,
+    "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    //"editor.renderWhitespace": "all",
+    "editor.renderWhitespace": "none",
+    "editor.minimap.enabled": false,
+
+    "workbench.tree.indent": 30,
+    "workbench.colorTheme": "Default Light+",
+    "workbench.statusBar.visible": true,
+    "workbench.editor.showTabs": "multiple",
+    "workbench.iconTheme": "file-icons",
+    
+    "code-eol.newlineCharacter": "¬",
+    "code-eol.returnCharacter" : "¤",
+    "code-eol.crlfCharacter"   : "¤¬",
+    "code-eol.highlightExtraWhitespace": false,
+    
+    "explorer.autoReveal": false,
+    "explorer.compactFolders": false,
+
+    "git.ignoreLimitWarning": true,
+    "git.enabled": false,
+
+    "C_Cpp.autocomplete": "disabled",
+
+    "bitbake.pathToBuildFolder": "../build",
+    "bitbake.pathToEnvScript": "../poky/oe-init-build-env",
+    "bitbake.pathToBitbakeFolder": "../poky/bitbake",
+    "bitbake.sdkImage": "core-image-minimal",
+    "bitbake.workingDirectory": "../.",
+
+    "search.followSymlinks": false,
+    "search.exclude": {
+      "**/.git": true,
+      "**/.repo": true
+    },
+    "python.autoComplete.extraPaths": [
+      "${workspaceFolder}/sources/poky/bitbake/lib",
+      "${workspaceFolder}/sources/poky/meta/lib",
+      "../poky/bitbake/lib",
+      "../poky/meta/lib"
+    ],
+    "python.analysis.extraPaths": [
+      "${workspaceFolder}/sources/poky/bitbake/lib",
+      "${workspaceFolder}/sources/poky/meta/lib",
+      "../poky/bitbake/lib",
+      "../poky/meta/lib"
+    ],
+    "[python]": {
+      "diffEditor.ignoreTrimWhitespace": false,
+      "editor.formatOnType": true,
+      "editor.wordBasedSuggestions": "off",
+      "files.trimTrailingWhitespace": false
+    },
+    "[shellscript]": {
+      "files.eol": "\n",
+      "files.trimTrailingWhitespace": false
+    },
+    "files.watcherExclude": {
+      "**/build/downloads/**": true,
+      "**/build/sstate-cache/**": true,
+      "**/build/tmp/**": true
+    },
+    "files.associations": {
+      "*.conf": "bitbake",
+      "*.inc": "bitbake"
+    }
+  }
 }

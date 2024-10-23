@@ -187,6 +187,14 @@ https://packages.ubuntu.com/
 $ cat /etc/apt/sources.list
 https://forums.linuxmint.com/viewtopic.php?t=385837
 
+VSCode fix for watchers
+###########################
+See limit
+$ cat /proc/sys/fs/inotify/max_user_watches
+Edit limit in /etc/sysctl.conf and add below line
+fs.inotify.max_user_watches=524288
+Load new value
+$ sudo sysctl -p
 
 Check devices connected on network
 ###########################
