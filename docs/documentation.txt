@@ -1,5 +1,5 @@
 Reference Documentation (Yocto)
-##################################
+############################
 https://www.yoctoproject.org/
 https://www.yoctoproject.org/development/releases/
 https://wiki.yoctoproject.org/wiki/Releases
@@ -9,8 +9,9 @@ https://layers.openembedded.org/layerindex/branch/master/layers/
 https://docs.yoctoproject.org/ref-manual/variables.html#term-IMAGE_FSTYPES
 https://docs.yoctoproject.org/ref-manual/variables.html#term-IMAGE_TYPES
 
+
 Reference Documentation (Raspberry Pi)
-########################################
+############################
 https://www.raspberrypi.com/documentation/
 https://datasheets.raspberrypi.com/
 https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf
@@ -18,19 +19,20 @@ https://github.com/raspberrypi/linux
 https://github.com/raspberrypi/linux/tree/rpi-6.6.y/arch/arm/boot/dts/overlays
 
 
-Preliminary Steps
+Yocto (scarthgap) preliminary steps
 #############################
 $ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales libacl1
 $ sudo locale-gen en_US.UTF-8
 
 
 Download Poky (standalone)
-######################
+############################
+https://git.yoctoproject.org/poky
 $ git clone git://git.yoctoproject.org/poky -b scarthgap
 
 
 Building Software Package Example
-######################################
+############################
 $ mkdir build
 $ source poky/oe-init-build-env build/
 OR
@@ -44,22 +46,23 @@ $ bitbake dropbear -c cleanall
 What will go to rootfs image for built package dropbear
 /home/george/Workspace/Yocto/rpi5_yocto_study/build/tmp/work/core2-64-poky-linux/dropbear/2022.83/image
 
+Cooking a image recipe (core-image-minimal)
+$ bitbake core-image-minimal
+
+Build all that can be built skipping the errors
+$ bitbake -k core-image-minimal
+
 
 Cloning Additional Layers
-##############################
+############################
 Use https://layers.openembedded.org/layerindex/branch/master/layers/ to pick layer
 
 $ cd poky/
 $ git clone <layer_git> -b <branch_name>
 
 
-Cooking (bitbake'ing) the image recipe
-################################
-$ bitbake core-image-minimal
-
-
 Limit cores and threads from local.conf
-###########################################
+############################
 BB_NUMBER_THREADS="10"
 PARALLEL_MAKE="-j 2"
 
@@ -72,7 +75,7 @@ $ cat /proc/cpuinfo
 
 
 Cook application SDK
-#########################
+############################
 $ bitbake meta-toolchain
 or
 $ bitbake meta-toolchain-qt6
@@ -81,17 +84,17 @@ $ bitbake meta-toolchain-moz
 
 
 Install application SDK
-#########################
+############################
 Execute the script from tmp/deploy/sdk/*toolchain
 
 
 Use the application SDK
-###########################
+############################
 $ . /opt/poky/5.0.1/environment-setup-cortexa76-poky-linux
 
 
 Git setup
-###########################
+############################
 $ git config --global --list
 
 $ git config --global core.autocrlf false
@@ -120,14 +123,23 @@ $ git rm -f meta-qt5/
 
 
 Useful commands
-###########################
+############################
 List files:
 $ find ../poky/ -name "*poky*"
 $ find ../../RPi_Project_Kirkstone/poky/ -type f -name \*.bb
 
+See space occupied
+https://medium.com/@naveedmajeed2/check-storage-size-of-files-and-folders-through-terminal-2b1604f0da4d
+
+Summary of disk space
+$ df -h
+
+Space occupied by current folder
+$ du -sh .
+
 
 Show BB layers
-###########################
+############################
 $ bitbake-layers show-layers
 $ bitbake-layers show-recipes "*-image-*"
 $ bitbake-layers show-recipes
@@ -135,14 +147,14 @@ $ bitbake-layers show-appends
 
 
 Show BB path
-###########################
+############################
 $ echo $BBPATH
 	results: /home/george/Workspace/Yocto/rpi5_yocto_study/build
 
 $ bitbake-layers create-layer meta-study
 $ bitbake-layers add-layer meta-study
 
-Chech what we install
+Check what we install with the image
 $ bitbake -e core-image-minimal | grep ^IMAGE_INSTALL=
 
 Other BB commands
@@ -150,24 +162,27 @@ https://community.nxp.com/t5/i-MX-Processors-Knowledge-Base/Useful-bitbake-comma
 
 
 Location of build image
-###########################
+############################
 rpi5_yocto_study/build/tmp/deploy/images/raspberrypi5
 
 
 Prepare card
-###########################
+############################
 $ sudo dmesg
 $ sudo fdisk -l
 # Convert wic.bz2 to .wic
 $ bzip2 -dkf core-image-minimal-raspberrypi5.rootfs-20241012173237.wic.bz2
 $ sudo dd if=core-image-minimal-raspberrypi5.rootfs-20241012173237.wic of=/dev/mmcblk0 status=progress bs=4096 && sync
 
-If we add image filetype to build command is 
+If we are already in build directory, change to image folder
+$ cd tmp/deploy/images/raspberrypi5_study
+
+Flash wic file
 $ sudo dd if=core-image-minimal-raspberrypi5.rootfs.wic of=/dev/mmcblk0 status=progress bs=4096 && sync
 
 
 Minicom (Serial communication)
-###########################
+############################
 $ sudo apt install minicom
 $ ls /dev/tty*
 	response with a new device after plug in: /dev/ttyUSB0
@@ -178,17 +193,8 @@ $ sudo minicom
 CTRL+A X = exit
 
 
-Ubuntu fix to build:
-###########################
-$ sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
-
-If unable to locate a package, find correct package name or update source list (repository list)
-https://packages.ubuntu.com/
-$ cat /etc/apt/sources.list
-https://forums.linuxmint.com/viewtopic.php?t=385837
-
 VSCode fix for watchers
-###########################
+############################
 See limit
 $ cat /proc/sys/fs/inotify/max_user_watches
 Edit limit in /etc/sysctl.conf and add below line
@@ -196,26 +202,27 @@ fs.inotify.max_user_watches=524288
 Load new value
 $ sudo sysctl -p
 
+
 Check devices connected on network
-###########################
+############################
 $ sudo nmap -sn 192.168.1.0/24
 
 
 SSH
-###########################
+############################
 $ ssh root@192.168.1.XXX
 # Copy files https://www.hostinger.com/tutorials/using-scp-command-to-transfer-files/
 scp [options] [source username@IP]:/[directory and file name] [destination username@IP]:/[destination directory]
 
 
 Etcher Balena for image flash
-###########################
+############################
 https://etcher.balena.io/#download-etcher
 https://github.com/balena-io/etcher/releases
 
 
 Export for target from recipe
-###########################
+############################
 export OECORE_TARGET_SYSROOT=${STAGING_DIR_TARGET}
 it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sysroot
 Export for host
@@ -224,12 +231,12 @@ it will point to /build/tmp/work/cortexa76-poky-linux/hellomake/1.0.0/recipe-sys
 
 
 GoYocto tool
-###########################
+############################
 https://yoctoproject.net/#
 
 
 Patch
-###########################
+############################
 $ devtool modify <recipename>
 do modifications
 $git diff
@@ -253,7 +260,7 @@ also delet line from bblayers.conf
 
 
 Qt6
-###########################
+############################
 $ git clone --depth 1 --branch v6.5.7-lts git://code.qt.io/yocto/meta-qt6.git
 Submodule version
 $ git submodule add git://code.qt.io/yocto/meta-qt6.git meta-qt6
@@ -275,7 +282,7 @@ Note, selecting 'qt6-5compat-dev' instead of 'libqt6core5compat6-dev'
 
 
 Application SDK
-###########################
+############################
 $ bitbake meta-toolchain
 
 tmp/deploy/sdk folder is created and populated
@@ -287,32 +294,23 @@ $ . /opt/poky/5.0.1/environment-setup-cortex76-poky-linux
 $ make
 $ file appcompiled
 
+
 Another search tool
-###########################
+############################
 $ sudo apt install silversearcher-ag
 $ ag "config SPI_SPIDEV"
 $ cat .config | grep SPIDEV
 $ cat /proc/config.gz | gunzip
 
 
-See space occupied
-###########################
-https://medium.com/@naveedmajeed2/check-storage-size-of-files-and-folders-through-terminal-2b1604f0da4d
-
-Summary of disk space
-$ df -h
-
-Space occupied by current folder
-$ du -sh .
-
 VSCode installed extensions
-###########################
+############################
 $ code --list-extensions
 
+List of installed extensions:
   alefragnani.bookmarks
   alphabotsec.vscode-eclipse-keybindings
   chrmarti.regex
-  eamodio.gitlens
   esbenp.prettier-vscode
   file-icons.file-icons
   formulahendry.code-runner
@@ -329,7 +327,9 @@ $ code --list-extensions
   ms-vscode.cpptools-themes
   oderwat.indent-rainbow
   peakchen90.open-html-in-browser
+  sanaajani.taskrunnercode
   streetsidesoftware.code-spell-checker
+  task.vscode-task
   tatsuyanakamori.resttext
   tomoki1207.pdf
   trond-snekvik.simple-rst
@@ -337,3 +337,17 @@ $ code --list-extensions
   wayou.vscode-todo-highlight
   wlhe.c-cpp-snippets
   yocto-project.yocto-bitbake
+
+
+Ubuntu fix to build:
+############################
+$ sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
+
+If unable to locate a package, find correct package name or update source list (repository list)
+https://packages.ubuntu.com/
+$ cat /etc/apt/sources.list
+OR
+$ cat /etc/apt/sources.list.d/ubuntu.sources
+
+Source list Linux Mint
+https://forums.linuxmint.com/viewtopic.php?t=385837
